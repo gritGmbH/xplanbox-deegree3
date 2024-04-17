@@ -47,14 +47,14 @@
 
   <distributionManagement>
     <repository>
-        <id>xplanbox-release</id>
+        <id>maven-xplanbox-release</id>
         <name>xplanbox-release</name>
-        <url>http://maven.werne.grit.de/artifactory/xplanbox-release</url>
+        <url>https://maven.werne.grit.de/artifactory/xplanbox-release</url>
     </repository>
     <snapshotRepository>
-        <id>xplanbox-snapshot</id>
+        <id>maven-xplanbox-snapshot</id>
         <name>xplanbox-snapshot</name>
-        <url>http://maven.werne.grit.de/artifactory/xplanbox-snapshot</url>
+        <url>https://maven.werne.grit.de/artifactory/xplanbox-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
   <!-- 
