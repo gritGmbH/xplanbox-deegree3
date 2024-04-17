@@ -10,11 +10,20 @@
   <url>http://www.deegree.org/</url>
 
   <scm>
+    <connection>scm:git:git@git.werne.grit.de:grit/xplanbox/ozg-xplan-backend.git</connection>
+    <developerConnection>scm:git:git@git.werne.grit.de:grit/xplanbox/ozg-xplan-backend.git</developerConnection>
+    <url>https://git.werne.grit.de/grit/xplanbox/ozg-xplan-backend</url>
+    <tag>xplanbox-deegree-3.5.6.1</tag>
+  </scm>
+
+  <!--
+  <scm>
     <connection>scm:git:git@github.com:lat-lon/deegree3.git</connection>
     <developerConnection>scm:git:git@github.com:lat-lon/deegree3.git</developerConnection>
     <url>https://github.com/deegree/deegree3</url>
     <tag>xplanbox-deegree-3.5.6.1</tag>
   </scm>
+  -->
 
   <repositories>
     <repository>
@@ -38,6 +47,19 @@
 
   <distributionManagement>
     <repository>
+        <id>xplanbox-release</id>
+        <name>xplanbox-release</name>
+        <url>http://maven.werne.grit.de/artifactory/xplanbox-release</url>
+    </repository>
+    <snapshotRepository>
+        <id>xplanbox-snapshot</id>
+        <name>xplanbox-snapshot</name>
+        <url>http://maven.werne.grit.de/artifactory/xplanbox-snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <!-- 
+  <distributionManagement>
+    <repository>
       <id>deegree-releases</id>
       <url>https://repo.deegree.org/content/repositories/releases/</url>
     </repository>
@@ -46,6 +68,8 @@
       <url>https://repo.deegree.org/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
+  -->
+
 
   <pluginRepositories>
     <pluginRepository>
