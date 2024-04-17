@@ -3,10 +3,30 @@ include:
     ref: main
     file: '/gitlab/maven-3.9.yml'
 
+variables:
+  DEBUG:
+    description: "Enable debugging"
+    options:
+      - "TRUE"
+      - "FALSE"
+    value: "TRUE"
+
 image: grit/build-container:temurin-jdk11-maven-3-9
 
 stages:
+  - prepare
   - build
+
+debug:
+  stage: prepare
+  script:
+    - pwd
+    - ls
+    - set
+    - mvn help:effective-settings
+  rules:
+    - if: $DEBUG == "TRUE"
+
 
 deploy:
   # do not extend grit common, as a deploy without test is needed!
