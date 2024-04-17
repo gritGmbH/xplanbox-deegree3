@@ -12,6 +12,7 @@ deploy:
   # do not extend grit common, as a deploy without test is needed!
   #extends:
   #  - .grit-maven-build-deploy
+  stage: build
   script:
     - echo "Starting build, test and deploy ..."
     - mvn $MAVEN_CLI_OPTS -Dmaven.install.skip=true deploy -DskipTests
