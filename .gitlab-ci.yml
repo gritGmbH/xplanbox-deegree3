@@ -3,13 +3,18 @@ include:
     ref: main
     file: '/gitlab/maven-3.9.yml'
 
+image: grit/build-container:temurin-jdk11-maven-3-9
+
 stages:
   - build
 
 deploy:
-  extends:
-    #- .grit-maven-build-deploy
-    - .grit-maven-build-feature
+  # do not extend grit common, as a deploy without test is needed!
+  #extends:
+  #  - .grit-maven-build-deploy
+  script:
+    - echo "Starting build, test and deploy ..."
+    - mvn $MAVEN_CLI_OPTS -Dmaven.install.skip=true deploy -DskipTests
 
 cleanup:
   stage: .post
