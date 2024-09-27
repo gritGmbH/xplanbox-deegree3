@@ -1,0 +1,49 @@
+include:
+  - project: 'grit/cicd-templates'
+    ref: main
+    file: '/gitlab/maven-3.9.yml'
+
+variables:
+  DEBUG:
+    description: "Enable debugging"
+    options:
+      - "TRUE"
+      - "FALSE"
+    value: "FALSE"
+
+image: grit/build-container:temurin-jdk11-maven-3-9
+
+stages:
+  - prepare
+  - build
+
+debug:
+  stage: prepare
+  script:
+    - pwd
+    - ls
+    - set
+    - mvn help:effective-settings
+  rules:
+    - if: $DEBUG == "TRUE"
+
+
+deploy:
+  # do not extend grit common, as a deploy without test is needed!
+  #extends:
+  #  - .grit-maven-build-deploy
+  stage: build
+  script:
+    - echo "Starting build, test and deploy ..."
+    - mvn $MAVEN_CLI_OPTS -Dmaven.install.skip=true deploy -DskipTests
+
+cleanup:
+  stage: .post
+  script:
+    - echo -e "\e[0Ksection_start:`date +%s`:cleanup[collapsed=true]\r\e[0K--- cleanup maven repository ---"
+    - 'test -d $CI_PROJECT_DIR/.m2/repository/de/grit && rm -rv $CI_PROJECT_DIR/.m2/repository/de/grit || echo "- Keine Artefakte de.grit geloescht -"'
+    - 'test -d $CI_PROJECT_DIR/.m2/repository/de/deegree-enterprise && rm -rv $CI_PROJECT_DIR/.m2/repository/de/deegree-enterprise || echo "- Keine Artefakte de.deegree-enterprise geloescht -"'
+    - 'test -d $CI_PROJECT_DIR/.m2/repository/pro/deegree && rm -rv $CI_PROJECT_DIR/.m2/repository/pro/deegree || echo "- Keine Artefakte pro.deegree-enterprise geloescht -"'
+    - 'test -d $CI_PROJECT_DIR/.m2/repository/de/latlon && rm -rv $CI_PROJECT_DIR/.m2/repository/de/latlon || echo "- Keine Artefakte de.latlon geloescht -"'
+    - echo "--- grit - cleanup maven repository completed ---"
+    - echo -e "\e[0Ksection_end:`date +%s`:cleanup\r\e[0K"
